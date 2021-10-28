@@ -30,15 +30,14 @@ li {
   min-height: 100%;
 }
 
+.left-text {
+  text-align: left;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.btn-clear {
-  border: none;
-  background: transparent;
 }
 
 .nav-link {
@@ -50,11 +49,6 @@ li {
 
 .nav li {
   margin-right: 10px;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .space-around {
@@ -125,42 +119,9 @@ li {
   border-radius: 3px;
 }
 
-.card {
-  margin: 10px 0;
-  width: 250px;
-  padding: 20px;
-}
-
-.card a {
-  text-decoration: none;
-}
-
-.card img {
-  margin-bottom: 8px;
-}
-
-.instructions-container {
-  margin: 100px 0;
-}
-
 .container-sm {
   width: 80%;
   margin: 0 auto;
-}
-
-.battle-instructions {
-  padding: 0;
-  font-size: 25px;
-}
-
-.battle-instructions li {
-  flex: 1;
-  min-width: 300px
-}
-
-.battle-instructions svg {
-  padding: 40px;
-  border-radius: 3px;
 }
 
 .column {
