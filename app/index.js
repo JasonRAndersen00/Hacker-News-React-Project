@@ -11,6 +11,7 @@ import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
 
 const Stories = React.lazy(() => import('./components/Stories'))
+const User = React.lazy(() => import('./components/User'))
 
 
 class App extends React.Component {
@@ -34,8 +35,8 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path='/' component={Stories} />
                   <Route path='/new' component={Stories} />
-                  {/* <Route exact path='/battle' component={Battle} />
-                  <Route path='/battle/results' component={Results} /> */}
+                  <Route path='/user' component={User} />
+                  {/* <Route path='/battle/results' component={Results} /> */}
                   <Route render={() => <h1>404 Page Not Found</h1>} />
                 </Switch>
               </React.Suspense>

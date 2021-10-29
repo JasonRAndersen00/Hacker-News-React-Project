@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { fetchMainPosts } from '../utils/api'
 import Loading from './Loading'
-import { Link } from 'react-router-dom'
-import { formatAMPM } from '../utils/utils'
 import Listing from './Listing'
 
 
