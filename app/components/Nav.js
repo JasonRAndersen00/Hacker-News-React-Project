@@ -32,7 +32,7 @@ export default function Nav () {
           </ul>
 
           <button
-            style={{fontsize: 50}}
+            style={{'fontSize': '30px'}}
             className='btn-clear'
             onClick={toggleTheme}
           >

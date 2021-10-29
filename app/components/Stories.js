@@ -3,6 +3,7 @@ import { fetchMainPosts } from '../utils/api'
 import Loading from './Loading'
 import { Link } from 'react-router-dom'
 import { formatAMPM } from '../utils/utils'
+import Listing from './Listing'
 
 
 export default class Stories extends React.Component {
@@ -64,51 +65,19 @@ export default class Stories extends React.Component {
           {posts.map((post) => {
             const {by, descendants, title, url, time, id} = post
 
-            console.log(`title: ${title} and url: ${url}`)
-
             //need to deal with url sometimes not there
             return (
               <li key={title} className='post'>
-                {/* header */}
-                {url !== undefined
-                ?<a href={url}>{title}</a>
-              :<Link
-                to={{
-                  pathname: '/post',
-                  search: `?id=${id}`
-                }}>
-                  {title}
-              </Link>}
-
-                {/* info */}
-                <div className='details'>
-                  <span>
-                    {'by '}
-                    <Link
-                      to={{
-                        pathname: '/user',
-                        search: `?id=${by}`
-                      }}>
-                        {by}
-                      </Link>
-                  </span>
-                  <span>
-                    {' on '}
-                    <a>{formatAMPM(time)}</a>
-                  </span>
-                  <span>
-                    {' with '}
-                    <Link
-                      to={{
-                        pathname: '/post',
-                        search: `?id=${id}`
-                      }}>
-                        {descendants}
-                      </Link>
-                    {' comments'}
-                  </span>
-                </div>
+                <Listing
+                  title={title}
+                  id={id}
+                  url={url}
+                  username={by}
+                  comments={descendants}
+                  time={time}
+                />
               </li>
+
             )
           })}
         </ul>

@@ -1,8 +1,3 @@
-
-
-
-
-
 export function formatAMPM(timestamp) {
   const date = new Date(timestamp *1000)
   let hours = date.getHours();
