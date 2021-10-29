@@ -33,7 +33,7 @@ class App extends React.Component {
               <React.Suspense fallback={<Loading/>}>
                 <Switch>
                   <Route exact path='/' component={Stories} />
-                  {/* <Route exact path='/new' component={Stories} /> */}
+                  <Route path='/new' component={Stories} />
                   {/* <Route exact path='/battle' component={Battle} />
                   <Route path='/battle/results' component={Results} /> */}
                   <Route render={() => <h1>404 Page Not Found</h1>} />

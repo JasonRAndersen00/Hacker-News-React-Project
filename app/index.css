@@ -235,3 +235,12 @@ li {
   font-size: 20px;
   margin: 50px 0;
 }
+
+.btn-clear {
+  border: none;
+  background: transparent;
+}
+
+.post {
+  margin: 20px 0;
+}

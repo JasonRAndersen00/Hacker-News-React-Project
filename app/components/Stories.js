@@ -1,10 +1,8 @@
 import * as React from 'react'
 import { fetchMainPosts } from '../utils/api'
 import Loading from './Loading'
-import { useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { formatAMPM } from '../utils/utils'
-
-
 
 
 export default class Stories extends React.Component {
@@ -14,29 +12,44 @@ export default class Stories extends React.Component {
     error:null
   }
 
-  componentDidMount () {
-    // console.log(this.props.location.pathname)
-    fetchMainPosts('top')
-      .then((posts) => {
-        this.setState({
-          posts,
-          loading:false
-        })
-      }).catch(({ message }) => {
-        this.setState({
-          error:message,
-          loading: false
-        })
+  getPosts = (pathname) => {
+    const type = String(pathname).endsWith('new') ? 'new' : 'top'
+    this.setState({loading:true})
+
+    fetchMainPosts(type)
+    .then((posts) => {
+      this.setState({
+        posts,
+        loading:false
       })
+    }).catch(({ message }) => {
+      this.setState({
+        error:message,
+        loading: false
+      })
+    })
 
   }
 
+  componentDidMount () {
+    this.unlisten = this.props.history.listen((location, action) => {
+      this.getPosts(location.pathname)
+    });
+    this.getPosts(this.props.location.pathname)
+
+  }
+
+
+  componentWillUnmount() {
+    console.log('unmount')
+    this.unlisten();
+}
 
   render() {
     const {posts, error, loading} = this.state
 
     if (loading === true){
-      return <Loading text='Battling' />
+      return <Loading text='Loading' />
     }
 
     if (error) {
@@ -47,22 +60,37 @@ export default class Stories extends React.Component {
 
     return(
       <React.Fragment>
-        <ul className='column space-between'>
+        <ul >
           {posts.map((post) => {
-            const {by, descendants, title, url, time} = post
+            const {by, descendants, title, url, time, id} = post
 
-
+            console.log(`title: ${title} and url: ${url}`)
 
             //need to deal with url sometimes not there
             return (
-              <li key={title}>
+              <li key={title} className='post'>
                 {/* header */}
-                <h4>{title}</h4>
+                {url !== undefined
+                ?<a href={url}>{title}</a>
+              :<Link
+                to={{
+                  pathname: '/post',
+                  search: `?id=${id}`
+                }}>
+                  {title}
+              </Link>}
+
                 {/* info */}
                 <div className='details'>
                   <span>
                     {'by '}
-                    <a>{by}</a>
+                    <Link
+                      to={{
+                        pathname: '/user',
+                        search: `?id=${by}`
+                      }}>
+                        {by}
+                      </Link>
                   </span>
                   <span>
                     {' on '}
@@ -70,7 +98,13 @@ export default class Stories extends React.Component {
                   </span>
                   <span>
                     {' with '}
-                    <a>{descendants}</a>
+                    <Link
+                      to={{
+                        pathname: '/post',
+                        search: `?id=${id}`
+                      }}>
+                        {descendants}
+                      </Link>
                     {' comments'}
                   </span>
                 </div>
