@@ -32,7 +32,10 @@ export default class Stories extends React.Component {
 
   componentDidMount () {
     this.unlisten = this.props.history.listen((location, action) => {
-      this.getPosts(location.pathname)
+      if(String(location.pathname).endsWith('new') ||
+         String(location.pathname).endsWith('/')) {
+          this.getPosts(location.pathname)
+        }
     });
     this.getPosts(this.props.location.pathname)
 
@@ -65,7 +68,7 @@ export default class Stories extends React.Component {
 
             //need to deal with url sometimes not there
             return (
-              <li key={title} className='post'>
+              <li key={id} className='post'>
                 <Listing
                   title={title}
                   id={id}

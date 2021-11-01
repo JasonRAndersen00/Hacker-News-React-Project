@@ -10,7 +10,6 @@ export default function Listing ({username, comments, title, url, time, id}) {
       {({ theme }) => (
         <React.Fragment>
           {/* header */}
-          <a />
           {url !== undefined
             ?<a href={url} dangerouslySetInnerHTML={{__html: title}}/>
             :<Link
@@ -19,7 +18,8 @@ export default function Listing ({username, comments, title, url, time, id}) {
                 search: `?id=${id}`
               }}
               dangerouslySetInnerHTML={{__html: title}}
-              />}
+              />
+            }
             {/* info */}
             <div className='details'>
               <span>

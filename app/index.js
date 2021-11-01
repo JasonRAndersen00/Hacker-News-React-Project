@@ -12,6 +12,7 @@ import Nav from './components/Nav'
 
 const Stories = React.lazy(() => import('./components/Stories'))
 const User = React.lazy(() => import('./components/User'))
+const Post = React.lazy(() => import('./components/Post'))
 
 
 class App extends React.Component {
@@ -36,7 +37,7 @@ class App extends React.Component {
                   <Route exact path='/' component={Stories} />
                   <Route path='/new' component={Stories} />
                   <Route path='/user' component={User} />
-                  {/* <Route path='/battle/results' component={Results} /> */}
+                  <Route path='/post' component={Post} />
                   <Route render={() => <h1>404 Page Not Found</h1>} />
                 </Switch>
               </React.Suspense>

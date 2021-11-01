@@ -21,7 +21,6 @@ export default class User extends React.Component {
 
     fetchUser(id)
       .then((user) =>{
-        console.log(user)// REMOVE
         fetchPosts(user.submitted.slice(0,30))
           .then((posts) => {
 
@@ -82,7 +81,7 @@ export default class User extends React.Component {
 
             //need to deal with url sometimes not there
             return (
-              <li key={title} className='post'>
+              <li key={id} className='post'>
                 <Listing
                   title={title}
                   id={id}
