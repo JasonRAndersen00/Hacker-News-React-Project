@@ -11,8 +11,10 @@ export default function Listing ({username, comments, title, url, time, id}) {
         <React.Fragment>
           {/* header */}
           {url !== undefined
-            ?<a href={url} dangerouslySetInnerHTML={{__html: title}}/>
+            ?<a className='link'
+            href={url} dangerouslySetInnerHTML={{__html: title}}/>
             :<Link
+              className='link'
               to={{
                 pathname: '/post',
                 search: `?id=${id}`
@@ -21,7 +23,7 @@ export default function Listing ({username, comments, title, url, time, id}) {
               />
             }
             {/* info */}
-            <div className='details'>
+            <div className={`details-${theme}`}>
               <span>
                 {'by '}
                 <Link
@@ -34,7 +36,7 @@ export default function Listing ({username, comments, title, url, time, id}) {
               </span>
               <span>
                 {' on '}
-                <a>{formatAMPM(time)}</a>
+                {formatAMPM(time)}
               </span>
               <span>
                 {' with '}

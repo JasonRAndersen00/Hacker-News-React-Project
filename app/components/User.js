@@ -4,6 +4,7 @@ import queryString from 'query-string'
 import { fetchPosts, fetchUser } from '../utils/api'
 import { formatAMPM } from '../utils/utils'
 import Listing from './Listing'
+import { ThemeConsumer } from "../contexts/theme";
 
 
 export default class User extends React.Component {
@@ -60,42 +61,47 @@ export default class User extends React.Component {
       )
     }
     return(
-      <React.Fragment>
-        <h1>{id}</h1>
-        <div>
-          <span>
-            {'joined '}
-            <b>{formatAMPM(user.created)}</b>
-          </span>
-          <span>
-            {' has '}
-            <b>{user.karma}</b>
-            {' karma'}
-          </span>
+      <ThemeConsumer>
+      {({ theme }) => (
+        <React.Fragment>
+          <h1>{id}</h1>
+          <div className={`details-${theme}`}>
+            <span>
+              {'joined '}
+              <b>{formatAMPM(user.created)}</b>
+            </span>
+            <span>
+              {' has '}
+              <b>{user.karma}</b>
+              {' karma'}
+            </span>
+          </div>
           <p dangerouslySetInnerHTML={{__html: user.about}}/>
-        </div>
-        <h2>Posts</h2>
-        <ul>
-          {posts.map((post) => {
-            const {by, descendants, title, url, time, id} = post
+          <h2>Posts</h2>
+          <ul>
+            {posts.map((post) => {
+              const {by, descendants, title, url, time, id} = post
 
-            //need to deal with url sometimes not there
-            return (
-              <li key={id} className='post'>
-                <Listing
-                  title={title}
-                  id={id}
-                  url={url}
-                  username={by}
-                  comments={descendants}
-                  time={time}
-                />
-              </li>
+              //need to deal with url sometimes not there
+              return (
+                <li key={id} className='post'>
+                  <Listing
+                    title={title}
+                    id={id}
+                    url={url}
+                    username={by}
+                    comments={descendants}
+                    time={time}
+                  />
+                </li>
 
-            )
-          })}
-        </ul>
-      </React.Fragment>
+              )
+            })}
+          </ul>
+        </React.Fragment>
+      )}
+      </ThemeConsumer>
+
     )
   }
 }

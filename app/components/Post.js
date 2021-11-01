@@ -13,7 +13,7 @@ function Comment ({by, time, text}) {
     <ThemeConsumer>
       {({ theme }) => (
         <React.Fragment>
-          <div className='details'>
+          <div className={`details-${theme}`}>
             <span>
               {'by '}
               <Link
@@ -26,7 +26,7 @@ function Comment ({by, time, text}) {
             </span>
             <span>
               {' on '}
-              <a>{formatAMPM(time)}</a>
+              {formatAMPM(time)}
             </span>
           </div>
           <p dangerouslySetInnerHTML={{__html: text}}/>
@@ -96,66 +96,71 @@ export default class User extends React.Component {
       )
     }
     return(
-      <React.Fragment>
-        <h1>
-          {post.url !== undefined
-            ?<a href={post.url} dangerouslySetInnerHTML={{__html: post.title}}/>
-            :<Link
-              to={{
-                pathname: '/post',
-                search: `?id=${id}`
-              }}
-              dangerouslySetInnerHTML={{__html: post.title}}
-            />
-          }
-        </h1>
-        <div className='details'>
-          <span>
-            {'by '}
-            <Link
-              to={{
-                pathname: '/user',
-                search: `?id=${post.by}`
-              }}>
-                {post.by}
-              </Link>
-          </span>
-          <span>
-            {' on '}
-            <a>{formatAMPM(post.time)}</a>
-          </span>
-          <span>
-            {' with '}
-            <Link
-              to={{
-                pathname: '/post',
-                search: `?id=${id}`
-              }}>
-                {post.descendants}
-              </Link>
-            {' comments'}
-          </span>
-        </div>
-
-        {comments !== null
-          ?<ul>
-          {comments && comments.map((comment) => {
-            const {by, time, text, id} = comment
-            return (
-              <li key={id} className='comment'>
-                <Comment
-                by = {by}
-                time = {time}
-                text = {text}
+      <ThemeConsumer>
+        {({ theme }) => (
+          <React.Fragment>
+            <h1>
+              {post.url !== undefined
+                ?<a
+                  className='link'
+                  href={post.url} dangerouslySetInnerHTML={{__html: post.title}}/>
+                :<Link
+                  className='link'
+                  to={{
+                    pathname: '/post',
+                    search: `?id=${id}`
+                  }}
+                  dangerouslySetInnerHTML={{__html: post.title}}
                 />
-              </li>
-            )
-          })}
-        </ul>
-        :<p></p>}
+              }
+            </h1>
+            <div className={`details-${theme}`}>
+              <span>
+                {'by '}
+                <Link
+                  to={{
+                    pathname: '/user',
+                    search: `?id=${post.by}`
+                  }}>
+                    {post.by}
+                  </Link>
+              </span>
+              <span>
+                {' on '}
+                <a>{formatAMPM(post.time)}</a>
+              </span>
+              <span>
+                {' with '}
+                <Link
+                  to={{
+                    pathname: '/post',
+                    search: `?id=${id}`
+                  }}>
+                    {post.descendants}
+                  </Link>
+                {' comments'}
+              </span>
+            </div>
 
-
-      </React.Fragment>
+            {comments !== null
+              ?<ul>
+              {comments && comments.map((comment) => {
+                const {by, time, text, id} = comment
+                return (
+                  <li key={id} className='comment'>
+                    <Comment
+                    by = {by}
+                    time = {time}
+                    text = {text}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+            :<p></p>}
+          </React.Fragment>
+      )}
+    </ThemeConsumer>
     )
   }
 }
