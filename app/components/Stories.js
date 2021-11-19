@@ -19,7 +19,8 @@ export default class Stories extends React.Component {
     .then((posts) => {
       this.setState({
         posts,
-        loading:false
+        loading:false,
+        error: null
       })
     }).catch(({ message }) => {
       this.setState({
